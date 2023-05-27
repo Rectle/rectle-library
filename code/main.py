@@ -3,7 +3,7 @@ def load(path):
 
 def func():
     # Load model
-    model = load("""{% RECTLE.VAR.PATH %}""")
+    model = load("""{% RECTLE.VAR.MODEL_PATH %}""")
     pass
 
 score = 10

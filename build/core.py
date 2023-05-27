@@ -5,8 +5,8 @@ import re
 import hashlib
 import glob
 
-MODULE_NAME = "rectle_module"
-DIST_DIR = "./dist/"
+MODULE_NAME = "rectle_core"
+DIST_DIR = f"./dist/{MODULE_NAME}/"
 CORE_DIR = "./src/core/"
 # Setup
 
@@ -21,10 +21,14 @@ for path in glob.iglob(f"{CORE_DIR}/**/*.py", recursive=True):
    with open(path, 'r') as file:
       original_file = file.read()
 
-   pattern = r".*(?:\\|\/)(.*\.py)"
-   file_name = re.findall(pattern, path)[0]
+   pattern = r".*(?:\\|\/)([^\.]+\.py)"
 
-   hash_name = hashlib.sha256(file_name.encode())
-   file_name = hash_name.hexdigest()
-   
-   py_compile.compile(path, cfile=f"{DIST_DIR}rectle_{file_name}.pyc", doraise=True)
+   try: 
+      file_name = re.findall(pattern, path)[0].split('.')[0]
+
+      hash_name = hashlib.sha256(file_name.lower().encode())
+      file_name = hash_name.hexdigest()
+      
+      py_compile.compile(path, cfile=f"{DIST_DIR}rectle_{file_name}.pyc", doraise=True)
+   except:
+      pass
