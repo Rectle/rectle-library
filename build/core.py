@@ -4,10 +4,15 @@ import shutil
 import re
 import hashlib
 import glob
+import sys
 
 MODULE_NAME = "rectle_core"
-DIST_DIR = f"./dist/{MODULE_NAME}/"
 CORE_DIR = "./src/core/"
+
+try:
+   DIST_DIR = str(sys.argv[1]) + f"/{MODULE_NAME}/"
+except:
+   DIST_DIR = f"./dist/{MODULE_NAME}/"
 # Setup
 
 if os.path.exists(DIST_DIR):

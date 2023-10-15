@@ -1,11 +1,17 @@
 import re
 import hashlib
 import glob
+import sys
 
 MODULE_NAME = "rectle_core"
-DIST_DIR = ".\\dist\\"
-INPUT_DIR = ".\\code\\"
-
+try:
+    INPUT_DIR = str(sys.argv[1]).replace('/', "\\")
+    DIST_DIR = str(sys.argv[2]).replace('/', "\\")
+except:
+    INPUT_DIR = ".\\code\\"
+    DIST_DIR = ".\\dist\\"
+print(INPUT_DIR)
+print(DIST_DIR)
 import_files = ""
 
 for path in glob.iglob(f"{INPUT_DIR}/**/*.py", recursive=True):
