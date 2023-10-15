@@ -1,1 +1,1 @@
-MODEL_PATH="volume/project"
+MODEL_PATH="volume/project/model"
