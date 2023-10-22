@@ -7,7 +7,7 @@ import glob
 import sys
 
 MODULE_NAME = "rectle_core"
-CORE_DIR = "./src/core/"
+CORE_DIR = "./src/rectle_lib/src/core/"
 
 try:
    DIST_DIR = str(sys.argv[1]) + f"/{MODULE_NAME}/"

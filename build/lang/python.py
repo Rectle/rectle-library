@@ -35,16 +35,16 @@ for path in glob.iglob(f"{INPUT_DIR}/**/*.py", recursive=True):
             function_name = hashlib.sha256(_name.lower().encode()).hexdigest()
             function_call = f"{MODULE_NAME}.rectle_{function_name}.{_name.lower()}({args_str})"
             data = data.replace(f"{_prefix}% {_scope}.{_type}.{_name}{_args} %{_suffix}", function_call)
-
-            import_files += f"import {DIST_DIR.replace('\\', '.')}.{MODULE_NAME}.rectle_{function_name}\n"
+            pwd = DIST_DIR.replace('/', '.')
+            import_files += f"import {MODULE_NAME}.rectle_{function_name}\n"
 
             
         if _type.upper() == "VAR":
             variable_name = hashlib.sha256(_name.lower().encode()).hexdigest()
             variable_ref = f"{MODULE_NAME}.rectle_{variable_name}.{_name.upper()}"
             data = data.replace(f"{_prefix}% {_scope}.{_type}.{_name}{_args} %{_suffix}", variable_ref)
-
-            import_files += f"import {DIST_DIR.replace('\\', '.')}.{MODULE_NAME}.rectle_{variable_name}\n"
+            pwd = DIST_DIR.replace('/', '.')
+            import_files += f"import {MODULE_NAME}.rectle_{variable_name}\n"
 
     with open(path.replace(INPUT_DIR, DIST_DIR), 'w') as file:
         file.write("\n".join([import_files, data]))
