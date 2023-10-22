@@ -10,8 +10,6 @@ try:
 except:
     INPUT_DIR = ".\\code\\"
     DIST_DIR = ".\\dist\\"
-print(INPUT_DIR)
-print(DIST_DIR)
 import_files = ""
 
 for path in glob.iglob(f"{INPUT_DIR}/**/*.py", recursive=True):
@@ -38,7 +36,7 @@ for path in glob.iglob(f"{INPUT_DIR}/**/*.py", recursive=True):
             function_call = f"{MODULE_NAME}.rectle_{function_name}.{_name.lower()}({args_str})"
             data = data.replace(f"{_prefix}% {_scope}.{_type}.{_name}{_args} %{_suffix}", function_call)
 
-            import_files += f"import {MODULE_NAME}.rectle_{function_name}\n"
+            import_files += f"import {DIST_DIR.replace('\\', '.')}.{MODULE_NAME}.rectle_{function_name}\n"
 
             
         if _type.upper() == "VAR":
@@ -46,7 +44,7 @@ for path in glob.iglob(f"{INPUT_DIR}/**/*.py", recursive=True):
             variable_ref = f"{MODULE_NAME}.rectle_{variable_name}.{_name.upper()}"
             data = data.replace(f"{_prefix}% {_scope}.{_type}.{_name}{_args} %{_suffix}", variable_ref)
 
-            import_files += f"import {MODULE_NAME}.rectle_{variable_name}\n"
+            import_files += f"import {DIST_DIR.replace('\\', '.')}.{MODULE_NAME}.rectle_{variable_name}\n"
 
     with open(path.replace(INPUT_DIR, DIST_DIR), 'w') as file:
         file.write("\n".join([import_files, data]))
