@@ -5,8 +5,8 @@ import sys
 
 MODULE_NAME = "rectle_core"
 try:
-    INPUT_DIR = str(sys.argv[1]).replace('/', "\\")
-    DIST_DIR = str(sys.argv[2]).replace('/', "\\")
+    INPUT_DIR = str(sys.argv[1])
+    DIST_DIR = str(sys.argv[2])
 except:
     INPUT_DIR = ".\\code\\"
     DIST_DIR = ".\\dist\\"
